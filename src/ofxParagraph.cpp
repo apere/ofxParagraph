@@ -69,6 +69,39 @@ void ofxParagraph::draw()
     ofPopStyle();
 }
 
+float ofxParagraph::getTextWidth() {
+	float width = 0;
+	float lineY = mWords[mWords.size() - 1].rect.y;
+	for (int i = 0; i < mWords.size(); i++) {
+		if (mWords[i].rect.y == lineY) {
+			width += mWords[i].rect.getWidth();
+		}
+		
+	}
+	return width;
+}
+
+int ofxParagraph::getNumberOfLines() {
+	int y = mWords[0].rect.getY();
+	int numLines = 1;
+	for (int i = 0; i < mWords.size(); i++) {
+		if (mWords[i].rect.y > y) {
+			y = mWords[i].rect.y;
+			numLines++;
+		}
+	}
+	return numLines;
+}
+
+float ofxParagraph::getTextX() {
+	if (mWords.size() > 0) {
+		return mWords[0].rect.x;
+	}
+	else {
+		return 0;
+	}
+}
+
 void ofxParagraph::draw(int x, int y)
 {
     this->x = x;
@@ -155,6 +188,10 @@ void ofxParagraph::setLeading(int leading)
 {
     mLeading = leading;
     render();
+}
+
+float ofxParagraph::getLeading() {
+	return mLeading;
 }
 
 void ofxParagraph::setIndent(int indent)

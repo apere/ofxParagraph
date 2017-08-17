@@ -59,12 +59,17 @@ class ofxParagraph{
         int getWidth();
         int getHeight();
         int getStringHeight(string str = "");
+		int getNumberOfLines();
+		float getLeading();
     
         void draw();
         void draw(int x, int y);
         void drawBorder(bool draw);
         void drawBorder(ofColor color);
         void drawWordBoundaries(bool draw = true);
+
+		float getTextWidth();
+		float getTextX();
     
     private:
     

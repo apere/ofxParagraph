@@ -112,7 +112,7 @@ float getTextWidth();  // the width of the first line of text
     
 int getNumberOfLines(); // number of lines in the paragraph
     
-int getTextX(); //  the x value of the left most word
+int getTextX(); //  the x pixel location of the left most word
     
 float getLeading(); // line leading
 ```

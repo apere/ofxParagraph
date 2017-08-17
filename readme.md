@@ -1,5 +1,7 @@
 ofxParagraph
 -----------------
+A fork of [braitsch/ofxParagraph](https://github.com/braitsch/ofxParagraph) with a few extra features.
+
 A simple paragraph renderer for [openFrameworks](http://openframeworks.cc/) that allows you to set the alignment, width, indentation, leading and pixel based word spacing of paragraphs.
 
 
@@ -83,3 +85,16 @@ And there are also a couple of handy getter functions just in case.
 	int getHeight()
 	
 	int getStringHeight(string s = "")
+
+##New Functions
+
+    `float getTextWidth()` - returns the width of the first line of text
+    
+    `int getNumberOfLines()`
+    
+    `int getTextX()` - returns the x value of the left most word
+    
+    `float getLeading()`
+    
+
+    

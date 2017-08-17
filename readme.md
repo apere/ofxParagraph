@@ -9,7 +9,7 @@ A simple paragraph renderer for [openFrameworks](http://openframeworks.cc/) that
 
 --
 
-###Installation
+### Installation
 
 **ofxParagraph** uses [ofxSmartFont](https://github.com/braitsch/ofxSmartFont) for font management which allows you to safely share ofxParagraph fonts with the rest of your application. 
 
@@ -19,7 +19,7 @@ This requires you to clone the repository recursively if you don't already have 
 
 --
 
-###Usage
+### Usage
 
 Creating a paragraph is as simple as passing in a string and setting a width.
 
@@ -42,7 +42,7 @@ Once you've got some text, a width and a font you're ready to draw:
 
 --
 
-###Customization
+### Customization
 
 The following methods are available to customize any ofxParagraph instance.
  
@@ -86,15 +86,17 @@ And there are also a couple of handy getter functions just in case.
 	
 	int getStringHeight(string s = "")
 
-##New Functions
+### Added Functions
 
-    `float getTextWidth()` - returns the width of the first line of text
+```c++
+float getTextWidth()  //returns the width of the first line of text
     
-    `int getNumberOfLines()`
+int getNumberOfLines()
     
-    `int getTextX()` - returns the x value of the left most word
+int getTextX() - returns the x value of the left most word
     
-    `float getLeading()`
+float getLeading()
+```
     
 
     

@@ -105,15 +105,16 @@ int getHeight();
 int getStringHeight(string s = "");
 ```
 ### Added Functions
+These functions are useful for setting the type & creating custem elements like underlines.
 
 ```c++
-float getTextWidth();  //returns the width of the first line of text
+float getTextWidth();  // the width of the first line of text
     
-int getNumberOfLines();
+int getNumberOfLines(); // number of lines in the paragraph
     
-int getTextX(); // returns the x value of the left most word
+int getTextX(); //  the x value of the left most word
     
-float getLeading();
+float getLeading(); // line leading
 ```
     
 

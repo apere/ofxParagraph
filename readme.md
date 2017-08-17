@@ -16,7 +16,7 @@ A simple paragraph renderer for [openFrameworks](http://openframeworks.cc/) that
 This requires you to clone the repository recursively if you don't already have it installed.
 
 ```
-git clone --recursive git@github.com:braitsch/ofxParagraph.git
+git clone --recursive git@github.com:apere/ofxParagraph.git
 ```
 
 --

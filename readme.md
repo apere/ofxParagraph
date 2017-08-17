@@ -15,7 +15,9 @@ A simple paragraph renderer for [openFrameworks](http://openframeworks.cc/) that
 
 This requires you to clone the repository recursively if you don't already have it installed.
 
-	git clone --recursive git@github.com:braitsch/ofxParagraph.git
+```
+git clone --recursive git@github.com:braitsch/ofxParagraph.git
+```
 
 --
 
@@ -23,79 +25,94 @@ This requires you to clone the repository recursively if you don't already have 
 
 Creating a paragraph is as simple as passing in a string and setting a width.
 
-	ofxParagraph paragraph = ofxParagraph(text, width);
+```c++
+ofxParagraph paragraph = ofxParagraph(text, width);
+```
 
 And then assigning a font you'd like to use:
 
- 	paragraph.setFont("fonts/helvetica_neue.ttf", 12)
+```c++
+paragraph.setFont("fonts/helvetica_neue.ttf", 12)
 
 Alternately you can pass in an [ofxSmartFont](https://github.com/braitsch/ofxSmartFont) instance:
+```
 
-	shared_ptr<ofxSmartFont> helvetica_12;
-	paragraph.setFont(helvetica_12);
+```c++
+shared_ptr<ofxSmartFont> helvetica_12;
+paragraph.setFont(helvetica_12);
+```
 
 Once you've got some text, a width and a font you're ready to draw:
 
-	paragraph.draw();
-	// or specify a position //
-	paragraph.draw(int x, int y);
+```c++
+paragraph.draw();
+	
+// or specify a position 
+paragraph.draw(int x, int y);
+```
 
 --
 
 ### Customization
 
 The following methods are available to customize any ofxParagraph instance.
- 
-	void setText(string text)
-	
-	void setWidth(int width)
-	
-	void setFont(string file, int pointSize)
-	
-	void setFont(std::shared_ptr<ofxSmartFont> font)
- 
-	void setColor(ofColor color)
-	
-	void setColor(int color) // e.g. 0x333333
 
-	void setPosition(int x, int y)
+```c++
+void setText(string text);
+	
+void setWidth(int width);
+	
+void setFont(string file, int pointSize);
+	
+void setFont(std::shared_ptr<ofxSmartFont> font);
  
-	void setAlignment(ofxParagraph::Alignment align)
+void setColor(ofColor color);
+	
+void setColor(int color); // e.g. 0x333333
+
+void setPosition(int x, int y);
  
-	void setIndent(int indent)
+void setAlignment(ofxParagraph::Alignment align);
  
-	void setLeading(int leading) // vertical spacing between lines //
+void setIndent(int indent);
  
-	void setSpacing(int spacing) // horizontal spacing between words //
+void setLeading(int leading); // vertical spacing between lines 
+ 
+void setSpacing(int spacing); // horizontal spacing between words 
+```
 	
 You can also draw a border around paragraphs and boundaries around words.
-	
-	void drawBorder(bool draw)
-	
-	void drawBorder(ofColor color)
-	
-	void setBorderPadding(int padding)
 
-	void drawWordBoundaries(bool draw)
+	
+```c++
+void drawBorder(bool draw)
+	
+void drawBorder(ofColor color)
+	
+void setBorderPadding(int padding)
+
+void drawWordBoundaries(bool draw)
+```
 	
 And there are also a couple of handy getter functions just in case.
 
-	int getWidth()
+```c++
+int getWidth();
 	
-	int getHeight()
+int getHeight();
 	
-	int getStringHeight(string s = "")
-
+int getStringHeight(string s = "");
+```
 ### Added Functions
 
 ```c++
-float getTextWidth()  //returns the width of the first line of text
+float getTextWidth();  //returns the width of the first line of text
     
-int getNumberOfLines()
+int getNumberOfLines();
     
-int getTextX() - returns the x value of the left most word
+int getTextX(); // returns the x value of the left most word
     
-float getLeading()
+float getLeading();
 ```
     
 

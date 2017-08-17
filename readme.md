@@ -33,9 +33,10 @@ And then assigning a font you'd like to use:
 
 ```c++
 paragraph.setFont("fonts/helvetica_neue.ttf", 12)
+```
 
 Alternately you can pass in an [ofxSmartFont](https://github.com/braitsch/ofxSmartFont) instance:
-```
+
 
 ```c++
 shared_ptr<ofxSmartFont> helvetica_12;
@@ -85,13 +86,13 @@ You can also draw a border around paragraphs and boundaries around words.
 
 	
 ```c++
-void drawBorder(bool draw)
+void drawBorder(bool draw);
 	
-void drawBorder(ofColor color)
+void drawBorder(ofColor color);
 	
-void setBorderPadding(int padding)
+void setBorderPadding(int padding);
 
-void drawWordBoundaries(bool draw)
+void drawWordBoundaries(bool draw);
 ```
 	
 And there are also a couple of handy getter functions just in case.

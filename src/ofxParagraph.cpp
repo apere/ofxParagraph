@@ -1,4 +1,3 @@
-
 /*
     Copyright (C) 2014 Stephen Braitsch [http://braitsch.io]
 
@@ -89,6 +88,7 @@ int ofxParagraph::getNumberOfLines() {
 			y = mWords[i].rect.y;
 			numLines++;
 		}
+		
 	}
 	return numLines;
 }
@@ -100,6 +100,11 @@ float ofxParagraph::getTextX() {
 	else {
 		return 0;
 	}
+}
+
+void ofxParagraph::invertYAxis(bool invertAxis)
+{
+	reverseYAxis = invertAxis;
 }
 
 void ofxParagraph::draw(int x, int y)
@@ -215,6 +220,7 @@ void ofxParagraph::setFont(shared_ptr<ofxSmartFont> ttf)
 void ofxParagraph::setFont(string file, int size, string name)
 {
     mFont = ofxSmartFont::add(file, size, name);
+	cout << mFont->isAntiAliased() << endl;
     render();
 }
 
@@ -253,7 +259,8 @@ void ofxParagraph::render()
             x += mWords[i].rect.width + mSpacing;
             line.push_back(&mWords[i]);
         }   else{
-            if (line.size() > 0 ) y+= mLineHeight + mLeading;
+			if (line.size() > 0 && !reverseYAxis) { y += mLineHeight + mLeading; }
+			else if (line.size() > 0 && reverseYAxis) { y -= mLineHeight + mLeading; }
             mWords[i].rect.x = 0;
             mWords[i].rect.y = y;
             x = mWords[i].rect.width + mSpacing;

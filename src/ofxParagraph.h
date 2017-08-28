@@ -69,7 +69,8 @@ class ofxParagraph{
         void drawWordBoundaries(bool draw = true);
 
 		float getTextWidth();
-		float getTextX();
+		float getTextX();	
+		void invertYAxis(bool invertAxis);
     
     private:
     
@@ -91,6 +92,8 @@ class ofxParagraph{
         bool bDrawWordBoundaries;
         int mWordBoundaryPadding;
         ofColor mWordBoundaryColor;
+
+		bool reverseYAxis = false;
     
         struct word {
             string text;
@@ -101,9 +104,6 @@ class ofxParagraph{
         vector< vector<word*> > mLines;
     
         void render();
-        inline void drawLeftAligned();
-        inline void drawCenterAligned();
-        inline void drawRightAligned();
     
         static inline std::string &trim(std::string &s) {
 			s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](char c) {return !isspace(c); }));

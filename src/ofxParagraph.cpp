@@ -258,10 +258,10 @@ void ofxParagraph::render()
             mWords[i].rect.y = y;
             x += mWords[i].rect.width + mSpacing;
             line.push_back(&mWords[i]);
-        }   else{
-			if ((line.size() > 0 || mWords[i].text.find(linebreak) != string::npos) && !reverseYAxis) { y += mLineHeight + mLeading; }
-			else if ((line.size() > 0 || mWords[i].text.find(linebreak) != string::npos) && reverseYAxis) { y -= mLineHeight + mLeading; }
-			if (mWords[i].text.find(linebreak) == string::npos) {
+        }   else if (mWords[i].text.find(linebreak) == string::npos) {
+				if (line.size() > 0 && !reverseYAxis) { y += mLineHeight + mLeading; }
+				else if (line.size() > 0 && reverseYAxis) { y -= mLineHeight + mLeading; }
+
 				mWords[i].rect.x = 0;
 				mWords[i].rect.y = y;
 				x = mWords[i].rect.width + mSpacing;
@@ -269,17 +269,22 @@ void ofxParagraph::render()
 				line.clear();
 				line.push_back(&mWords[i]);
 			}
-			else {
-				ofLog(OF_LOG_NOTICE, "found a linebreak, trying to not put it in the line");
-				mWords[i].text = "";
-				mWords[i].rect.x = -999999999;
-				mWords[i].rect.y = -999999999;
+			else { // found a line break character
+				if (!reverseYAxis)
+					y += mLineHeight + mLeading;
+				if (reverseYAxis)
+					y -= mLineHeight + mLeading;
+				if(i >= 1)
+					ofLog(OF_LOG_NOTICE, "line break at " + mWords[i - 1].text + " last-y: " + ofToString(mWords[i-1].rect.y) + ", y: " + ofToString(y) );
+			//	mWords[i].text = "";
+				mWords[i].rect.x = -99999999999; // todo:  actually remove these items from mWords... this would mean making a copy of MWords so we can delete as we iterate OR storing the indices and deleting afterwards
+				mWords[i].rect.y = -99999999999;
 				x = 0;
 				if (line.size() > 0) mLines.push_back(line);
 				line.clear();
 			}
 				
-        }
+   
     }
 // append the last line //
     mLines.push_back(line);

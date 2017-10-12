@@ -220,7 +220,7 @@ void ofxParagraph::setFont(shared_ptr<ofxSmartFont> ttf)
 void ofxParagraph::setFont(string file, int size, string name)
 {
     mFont = ofxSmartFont::add(file, size, name);
-	cout << mFont->isAntiAliased() << endl;
+	//cout << mFont->isAntiAliased() << endl;
     render();
 }
 
@@ -253,20 +253,32 @@ void ofxParagraph::render()
     mLines.clear();
     vector<word*> line;
     for (int i=0; i<mWords.size(); i++) {
-        if (x + mWords[i].rect.width < mWidth){
+        if (x + mWords[i].rect.width < mWidth && mWords[i].text.find(linebreak) == string::npos){
             mWords[i].rect.x = x;
             mWords[i].rect.y = y;
             x += mWords[i].rect.width + mSpacing;
             line.push_back(&mWords[i]);
         }   else{
-			if (line.size() > 0 && !reverseYAxis) { y += mLineHeight + mLeading; }
-			else if (line.size() > 0 && reverseYAxis) { y -= mLineHeight + mLeading; }
-            mWords[i].rect.x = 0;
-            mWords[i].rect.y = y;
-            x = mWords[i].rect.width + mSpacing;
-            if (line.size() > 0) mLines.push_back(line);
-            line.clear();
-            line.push_back(&mWords[i]);
+			if ((line.size() > 0 || mWords[i].text.find(linebreak) != string::npos) && !reverseYAxis) { y += mLineHeight + mLeading; }
+			else if ((line.size() > 0 || mWords[i].text.find(linebreak) != string::npos) && reverseYAxis) { y -= mLineHeight + mLeading; }
+			if (mWords[i].text.find(linebreak) == string::npos) {
+				mWords[i].rect.x = 0;
+				mWords[i].rect.y = y;
+				x = mWords[i].rect.width + mSpacing;
+				if (line.size() > 0) mLines.push_back(line);
+				line.clear();
+				line.push_back(&mWords[i]);
+			}
+			else {
+				ofLog(OF_LOG_NOTICE, "found a linebreak, trying to not put it in the line");
+				mWords[i].text = "";
+				mWords[i].rect.x = -999999999;
+				mWords[i].rect.y = -999999999;
+				x = 0;
+				if (line.size() > 0) mLines.push_back(line);
+				line.clear();
+			}
+				
         }
     }
 // append the last line //

@@ -74,6 +74,7 @@ class ofxParagraph{
     
     private:
     
+		string linebreak = "_";
         int mWidth;
         int mHeight;
         int mIndent;

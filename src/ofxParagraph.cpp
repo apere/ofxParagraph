@@ -42,29 +42,32 @@ ofxParagraph::ofxParagraph(std::string text, int width, Alignment align)
 
 void ofxParagraph::draw()
 {
-    ofPushStyle();
-        for (int i=0; i<mWords.size(); i++) {
-            ofSetColor(mColor);
-            mFont->draw(mWords[i].text, this->x + mWords[i].rect.x, this->y + mWords[i].rect.y);
-            if (bDrawWordBoundaries == true){
-                ofPushStyle();
-                ofNoFill();
-                ofSetColor(mWordBoundaryColor);
-                ofDrawRectangle(this->x + mWords[i].rect.x - mWordBoundaryPadding,
-                       this->y + mWords[i].rect.y-mLineHeight - mWordBoundaryPadding,
-                       mWords[i].rect.width + (mWordBoundaryPadding * 2),
-                       mLineHeight + (mWordBoundaryPadding * 2));
-                ofPopStyle();
-            }
-        }
-        if (bDrawBorder == true){
-            ofNoFill();
-            ofSetColor(mBorderColor);
-            ofDrawRectangle(this->x - mBorderPadding,
-                   this->y - mFont->getLineHeight() - mBorderPadding,
-                   mWidth + (mBorderPadding * 2),
-                   mHeight + (mBorderPadding * 2));
-        }
+	ofPushStyle();
+	for (int i = 0; i < mWords.size(); i++) {
+		if (mWords[i].text.find(linebreak) == string::npos) {
+			ofSetColor(mColor);
+			mFont->draw(mWords[i].text, this->x + mWords[i].rect.x, this->y + mWords[i].rect.y);
+			if (bDrawWordBoundaries == true) {
+				ofPushStyle();
+				ofNoFill();
+				ofSetColor(mWordBoundaryColor);
+				ofDrawRectangle(this->x + mWords[i].rect.x - mWordBoundaryPadding,
+					this->y + mWords[i].rect.y - mLineHeight - mWordBoundaryPadding,
+					mWords[i].rect.width + (mWordBoundaryPadding * 2),
+					mLineHeight + (mWordBoundaryPadding * 2));
+				ofPopStyle();
+			}
+		}
+		if (bDrawBorder == true) {
+			ofNoFill();
+			ofSetColor(mBorderColor);
+			ofDrawRectangle(this->x - mBorderPadding,
+				this->y - mFont->getLineHeight() - mBorderPadding,
+				mWidth + (mBorderPadding * 2),
+				mHeight + (mBorderPadding * 2));
+		}
+	
+}
     ofPopStyle();
 }
 
@@ -274,8 +277,6 @@ void ofxParagraph::render()
 					y += mLineHeight + mLeading;
 				if (reverseYAxis)
 					y -= mLineHeight + mLeading;
-				if(i >= 1)
-					ofLog(OF_LOG_NOTICE, "line break at " + mWords[i - 1].text + " last-y: " + ofToString(mWords[i-1].rect.y) + ", y: " + ofToString(y) );
 			//	mWords[i].text = "";
 				mWords[i].rect.x = -99999999999; // todo:  actually remove these items from mWords... this would mean making a copy of MWords so we can delete as we iterate OR storing the indices and deleting afterwards
 				mWords[i].rect.y = -99999999999;

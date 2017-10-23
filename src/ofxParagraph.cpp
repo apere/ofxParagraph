@@ -223,7 +223,6 @@ void ofxParagraph::setFont(shared_ptr<ofxSmartFont> ttf)
 void ofxParagraph::setFont(string file, int size, string name)
 {
     mFont = ofxSmartFont::add(file, size, name);
-	//cout << mFont->isAntiAliased() << endl;
     render();
 }
 

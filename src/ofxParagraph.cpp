@@ -74,21 +74,29 @@ void ofxParagraph::draw()
 float ofxParagraph::getTextWidth() {
 	float width = 0;
 	float lineY = mWords[mWords.size() - 1].rect.y;
-	for (int i = 0; i < mWords.size(); i++) {
-		if (mWords[i].rect.y == lineY) {
-			width += mWords[i].rect.getWidth();
+	int maxWidth = 0;
+	for (auto & mWord : mWords) {
+		if (mWord.rect.y == lineY) {
+			width += mWord.rect.getWidth() + mSpacing;
 		}
-		
+		else {
+			if (width > maxWidth)
+				maxWidth = width;
+			lineY = mWord.rect.y;
+			width = mWord.rect.getWidth() + mSpacing;
+		}
 	}
-	return width;
+	if (maxWidth == 0)
+		maxWidth = width;
+	return maxWidth;
 }
 
 int ofxParagraph::getNumberOfLines() {
 	int y = mWords[0].rect.getY();
 	int numLines = 1;
-	for (int i = 0; i < mWords.size(); i++) {
-		if (mWords[i].rect.y > y) {
-			y = mWords[i].rect.y;
+	for (auto & mWord : mWords) {
+		if (mWord.rect.y > y) {
+			y = mWord.rect.y;
 			numLines++;
 		}
 		
@@ -97,8 +105,14 @@ int ofxParagraph::getNumberOfLines() {
 }
 
 float ofxParagraph::getTextX() {
-	if (mWords.size() > 0) {
-		return mWords[0].rect.x;
+	if (!mWords.empty()) {
+		int minX = mWords[0].rect.x;
+		for (auto & mWord : mWords) {
+			if(mWord.rect.x < minX && mWord.rect.x > 0)
+				minX = mWord.rect.x;
+		}
+		return minX;
+
 	}
 	else {
 		return 0;

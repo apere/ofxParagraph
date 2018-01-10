@@ -46,7 +46,16 @@ void ofxParagraph::draw()
 	for (int i = 0; i < mWords.size(); i++) {
 		if (mWords[i].text.find(linebreak) == string::npos) {
 			ofSetColor(mColor);
-			mFont->draw(mWords[i].text, this->x + mWords[i].rect.x, this->y + mWords[i].rect.y);
+			if (mWords[i].text == "*") {
+				ofPushMatrix();
+				ofPushStyle();
+				ofCircle(this->x + mWords[i].rect.x, this->x + mWords[i].rect.y - mWords[i].rect.getHeight()/2, 5);
+				ofPopStyle();
+				ofPopMatrix();
+			}
+			else {
+				mFont->draw(mWords[i].text, this->x + mWords[i].rect.x, this->y + mWords[i].rect.y);
+			}
 			if (bDrawWordBoundaries == true) {
 				ofPushStyle();
 				ofNoFill();

@@ -53,6 +53,9 @@ void ofxParagraph::draw()
 				ofPopStyle();
 				ofPopMatrix();
 			}
+			else if (mWords[i].text.find("*") != string::npos) {
+				iFont->draw(mWords[i].text.substr(1), this->x + mWords[i].rect.x, this->y + mWords[i].rect.y);
+			}
 			else {
 				mFont->draw(mWords[i].text, this->x + mWords[i].rect.x, this->y + mWords[i].rect.y);
 			}
@@ -246,6 +249,7 @@ void ofxParagraph::setFont(shared_ptr<ofxSmartFont> ttf)
 void ofxParagraph::setFont(string file, int size, string name)
 {
     mFont = ofxSmartFont::add(file, size, name);
+	iFont = ofxSmartFont::add("Antenna-Regular-Italic.ttf", size, name + "i");
     render();
 }
 
@@ -261,7 +265,12 @@ void ofxParagraph::render()
     while ( position != string::npos )
     {
         string s = str.substr(0, position);
+	
+		
         word w = {s, mFont->rect(s)};
+		if (s != "*" && s.find("*") != string::npos) {
+			w = { s, iFont->rect(s.substr(1)) };
+		}
         mWords.push_back(w);
         str.erase(0, position + 1);
         position = str.find(" ");

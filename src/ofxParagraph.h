@@ -86,6 +86,7 @@ class ofxParagraph{
         Alignment mAlignment;
     
         std::shared_ptr<ofxSmartFont> mFont;
+		std::shared_ptr<ofxSmartFont> iFont;
 
         bool bDrawBorder;
         ofColor mBorderColor;
